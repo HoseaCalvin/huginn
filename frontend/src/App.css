@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+body, html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.page-spacer {
+  @apply lg:ml-[190px];
+}
+
+.inner-page-spacer {
+  @apply max-w-[250px] w-full h-fit pt-4 px-5 mx-auto bg-white shadow-xl rounded-xl sm:max-w-[550px] sm:px-7 lg:rounded-2xl lg:max-w-[600px] lg:px-[2rem] lg:mx-24 xl:max-w-[700px];
+}
+
+.navbar-set-width {
+  @apply w-[120px] max-w-[190px] lg:w-[190px];
+}
+
+.list-item {
+  @apply py-1.5 my-1.5 text-sm cursor-pointer hover:bg-gray-200 rounded-xl flex gap-x-3.5 items-center lg:py-2 lg:px-7 lg:text-xl;
+}
+
+.primary-button {
+  @apply py-1.5 px-5 text-sm bg-black text-white rounded-2xl font-semibold lg:text-lg lg:py-2 lg:px-6;
+}
+
+.form-control {
+  @apply w-full border border-gray-400 rounded-md bg-white text-xs p-1;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(216, 216, 216);
+}
