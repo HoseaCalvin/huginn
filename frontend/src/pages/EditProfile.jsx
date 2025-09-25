@@ -81,7 +81,7 @@ function EditProfile() {
                     <p className="text-sm sm:text-base lg:text-xl">{dateOfBirthFormat(dob)}</p>
                 </div>
             </div>
-            <div className="space-y-5 px-4 py-6 lg:px-24">
+            <div className="space-y-5 px-8 py-6 sm:px-14 md:px-20 lg:px-24">
                 <div>
                     <p className="text-xs py-1 font-semibold md:text-sm">Username</p>
                     <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full p-1 border text-xs border-gray-500 rounded-sm md:text-sm lg:text-base"/>
