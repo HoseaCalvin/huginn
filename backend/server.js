@@ -11,7 +11,6 @@ import { sseRouter } from "./routes/sse.js";
 import userRoutes from './routes/user.route.js';
 import storyRoutes from './routes/story.route.js';
 import reactionRoutes from './routes/reaction.route.js';
-import categoryRoutes from './routes/category.route.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,7 +26,6 @@ app.use(helmet());
 app.use('/api/user', userRoutes);
 app.use('/api/story', storyRoutes);
 app.use('/api/reaction', reactionRoutes);
-app.use('/api/category', categoryRoutes);
 app.use('/sse', sseRouter);
 
 const port = process.env.PORT || 5000

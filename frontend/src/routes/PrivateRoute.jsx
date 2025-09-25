@@ -20,7 +20,7 @@ function PrivateRoute() {
     }
 
     return (
-        <div className="flex w-screen h-screen">
+        <div className="flex-col md:flex-row flex w-screen h-screen">
             <Sidebar/>
             <div className="flex-1"> 
                 <Outlet/>

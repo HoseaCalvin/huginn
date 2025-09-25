@@ -19,13 +19,13 @@ const storySchema = new mongoose.Schema({
     },
     categories: {
         type: Array,
-        maxlength: 5,
+        maxlength: 2,
         required: true
     },
-    // image: {
-    //     type: String,
-    //     default: 'default-photo.png'
-    // },
+    thumbnail: {
+        type: String,
+        default: 'default-photo.jpg'
+    },
     reactions: {
         heart: {
             type: Number,

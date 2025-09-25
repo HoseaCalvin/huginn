@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+import { maskUsername } from "../../../backend/utils/hideUsername.js";
 
 import { CategoryBadge } from "./Categories.jsx";
 import ReactionCard from "./ReactionCard.jsx";
@@ -26,27 +27,13 @@ function StoryModal({ id, username, title, categories, story, reactions: initial
         }
     },[id]);
 
-    function maskUsername(username) {
-        if(!username) {
-            return "";
-        }
-
-        if(username.length <= 2) {
-            return "*".repeat(username.length);
-        }
-
-        return username[0] + "*".repeat(username.length - 1);
-    }
-
     return(
-        <div className="fixed w-full h-full bg-gray-400/70 z-100">
-            <button className="text-5xl text-white p-3 cursor-pointer absolute top-0.5 right-2.5" onClick={modalFunction}>&times;</button>
+        <main className="fixed w-full h-full bg-gray-400/70 z-100">
             <div className="flex flex-col justify-center items-center h-full">
                 <div className="relative bg-white max-w-[280px] max-h-[450px] w-full h-full rounded-2xl px-5 py-4.5 mx-6 overflow-y-auto sm:max-w-[450px] md:max-w-[680px] md:max-h-[520px] lg:max-w-[930px] lg:max-h-[550px]">
-                    <div>
-                        <h1 className="text-center text-lg font-bold md:text-xl lg:text-2xl">{title}</h1>
-                    </div>
-                    <div className="flex justify-between mt-4 md:mt-1.5 lg:mt-3">
+                    <button className="text-4xl p-1 cursor-pointer absolute top-0.5 right-2" onClick={modalFunction}>&times;</button>
+                    <h1 className="text-center text-lg font-bold md:text-xl lg:text-2xl">{title}</h1>
+                    <div className="flex justify-between mt-4 md:mt-2 lg:mt-3">
                         <div>
                             <ReactionCard id={id} reactions={reactions}/>
                         </div>
@@ -67,7 +54,7 @@ function StoryModal({ id, username, title, categories, story, reactions: initial
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     )
 }
 

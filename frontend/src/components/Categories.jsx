@@ -1,7 +1,22 @@
-export function Category({ name, selected, onClick }) {
+export function CategoryList({ categoryList, onToggle }) {
+    const allCategories = [
+        "Mythology",
+        "Dark",
+        "Politics",
+        "Hilarious",
+        "Controversial",
+        "History",
+        "Heartbreaking"
+    ];
+
+
     return(
-        <div className={`${selected ? 'opacity-30' : ''} cursor-pointer px-1 py-1`} onClick={() => onClick()}>
-            <CategoryBadge category={name}/>
+        <div className="flex flex-wrap items-center gap-2">
+            {allCategories.map((category, index) => (
+                <div key={index} className={`${categoryList.includes(category) ? "opacity-100" : "opacity-30"} cursor-pointer`} onClick={() => onToggle(category)}>
+                    <CategoryBadge category={category} />
+                </div>
+            ))}
         </div>
     )
 }
@@ -18,7 +33,7 @@ export function CategoryBadge({ index, category }) {
     }
 
     return(
-        <span key={index} className={`border-[1px] py-0.5 px-2 rounded-full text-xs self-center ${categoryColors[category] || ''} lg:px-5`}>
+        <span key={index} className={`border-[1px] py-0.5 px-3.5 rounded-full text-xs self-center ${categoryColors[category] || ''} lg:px-5`}>
             {category}
         </span>
     )

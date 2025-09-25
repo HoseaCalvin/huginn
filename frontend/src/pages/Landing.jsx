@@ -33,7 +33,7 @@ function Landing() {
                 scrollIntoFeatures={() => scrollToSection(featuresRef)}
                 scrollIntoTestimonies={() => scrollToSection(testimoniesRef)}
             />
-            <div ref={aboutRef} className="flex flex-col-reverse justify-center items-center h-screen shadow-sm pt-[3.5rem] md:flex-row lg:pt-[9rem]">
+            <article ref={aboutRef} className="flex flex-col-reverse justify-center items-center h-screen shadow-sm pt-[3.5rem] md:flex-row lg:pt-[9rem]">
                 <div className="w-full space-y-3.5 mx-1 px-6 md:px-2 md:w-1/2 md:mx-12 md:space-y-3.5 lg:mx-16 lg:space-y-5">
                     <div>
                         <p className="font-semibold text-xs md:text-base">Huginn - Share Your Stories</p>
@@ -47,8 +47,8 @@ function Landing() {
                 <div className="w-full flex justify-center items-center md:w-1/2">
                     <img src={Communication} alt="" className="max-h-[45vh] h-full w-auto object-cover md:max-h-[50vh] lg:max-h-[75vh]"/>
                 </div>
-            </div>
-            <div ref={featuresRef} className="bg-gray-100 py-4">
+            </article>
+            <article ref={featuresRef} className="bg-gray-100 py-4">
                 <div className="py-5 lg:py-10">
                     <h1 className="text-center font-bold w-full text-lg md:text-2xl lg:text-3xl">Why Huginn?</h1>
                 </div>
@@ -65,8 +65,8 @@ function Landing() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div ref={testimoniesRef} className="py-4">
+            </article>
+            <article ref={testimoniesRef} className="py-4">
                 <div className="py-5 lg:py-10">
                     <h1 className="text-center font-bold w-full text-lg md:text-2xl lg:text-3xl">Testimonies</h1>
                 </div>
@@ -81,15 +81,15 @@ function Landing() {
                         <TestimonyCard name="B** L***" testimony="I can't find any application that allows full expression without getting criticized."/>
                     </Marquee>
                 </div>
-            </div>
-            <div className="bg-gray-900 p-5 lg:p-14">
-                <div className="flex flex-col justify-center w-full md:flex-row">
-                    <div className="w-full p-3 rounded-xl flex justify-center md:w-1/2">
-                        <img src={DarkModeHuginnWithText} alt="Huginn with Text" className="max-w-[120px] w-full h-auto p-4 md:max-w-[250px]"/>
+            </article>
+            <footer className="bg-gray-900 p-5 lg:px-14 lg:py-10">
+                <div className="flex flex-col justify-center items-center w-full p-1.5 md:flex-row">
+                    <div className="w-full rounded-xl flex justify-center md:w-1/2">
+                        <img src={DarkModeHuginnWithText} alt="Huginn with Text" className="max-w-[100px] w-full h-auto p-4 md:max-w-[150px]"/>
                     </div>
-                    <div className="text-white flex flex-col justify-center w-full h-full px-3.5 *:text-left md:*:text-left md:w-1/3 md:px-0">
-                        <h2 className="text-2xl font-bold md:py-5">Sections</h2>
-                        <ul className="*:text-lg *:cursor-pointer space-y-2 py-5 *:hover:font-semibold duration-500 md:*:text-xl md:py-3">
+                    <div className="text-white flex flex-col justify-center w-full h-full px-3.5 *:text-left md:w-1/3 md:px-0">
+                        <h2 className="text-lg font-bold py-1 md:text-xl">Sections</h2>
+                        <ul className="*:text-base *:cursor-pointer space-y-2 py-5 *:hover:font-semibold duration-500 md:*:text-base md:py-3">
                             <li onClick={() => scrollToSection(aboutRef)}>About</li>
                             <li onClick={() => scrollToSection(featuresRef)}>Features</li>
                             <li onClick={() => scrollToSection(testimoniesRef)}>Testimonies</li>
@@ -99,10 +99,12 @@ function Landing() {
                 <hr className="text-white w-full my-3"/>
                 <div className="flex justify-start text-white">
                     <div>
-                        <a href="https://github.com/HoseaCalvin/huginn" target="_blank"><GitHub className="w-[30px] h-auto p-0.5 md:w-[45px] md:p-1"/></a>
+                        <a href="https://github.com/HoseaCalvin/huginn" target="_blank">
+                            <GitHub className="w-[25px] h-auto p-0.5 md:w-[30px]"/>
+                        </a>
                     </div>
                 </div>
-            </div>
+            </footer>
         </>
     )
 }

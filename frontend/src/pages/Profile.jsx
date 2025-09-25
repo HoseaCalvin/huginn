@@ -1,6 +1,4 @@
 import ProfilePicture from "../assets/profile-picture.png";
-import Edit from "../assets/svgs/edit.svg?react";
-import Delete from "../assets/svgs/delete.svg?react";
 import Settings from "../assets/svgs/settings.svg?react";
 
 import { useState, useEffect } from "react";
@@ -8,18 +6,18 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext.jsx";
 
-import { CategoryBadge } from "../components/Categories.jsx";
-import Popup from "../components/Popup.jsx";
-import ReactionCard from "../components/ReactionCard.jsx";
+import { dateOfBirthFormat } from "../../../backend/utils/dateFormats.js";
+
 import StoryModal from "../components/StoryModal.jsx";
+import { PersonalStoryCard, SkeletonStoryCard } from "../components/StoryCard.jsx";
 
 function Profile() {
-    const { user, logout } = useAuth();
+    const { user, loading } = useAuth();
 
     const [stories, setStories] = useState([]);
+    const [selectedStory, setSelectedStory] = useState(null);
     const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
     const [isPersonalizationModalOpen, setIsPersonalizationModalOpen] = useState(false);
-    const [selectedStory, setSelectedStory] = useState(null);
 
     useEffect(() => {
         const fetchUserStories = async () => {
@@ -37,14 +35,6 @@ function Profile() {
         fetchUserStories();
     }, [])
 
-    const dateOfBirthFormat = (dob) => {
-        return new Date(dob).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });        
-    }
-
     const handleOpenStory = (story) => {
         setIsStoryModalOpen(true);
         setSelectedStory(story);
@@ -55,7 +45,11 @@ function Profile() {
         setSelectedStory(null);
         window.location.reload();
     }
-    
+
+    const handleEdit = (e) => {
+        e.stopPropagation();
+    }
+
     return(
         <>
             { isStoryModalOpen && selectedStory &&
@@ -73,44 +67,52 @@ function Profile() {
                 <Personalization modalFunction={() => setIsPersonalizationModalOpen(false)}/>
             }
 
-            <div className="page-spacer px-7 lg:px-12">
-                <div className="flex mt-12 py-2 px-1.5 items-center bg-gray-50 rounded-xl relative lg:py-0 lg:rounded-3xl lg:mt-5">
-                    <div>
-                        <img src={ProfilePicture} alt="Profile Picture" draggable={false} className="w-[80px] h-auto p-1.5 md:p-2 md:w-[130px] lg:p-3 lg:w-[220px]"/>
-                    </div>
-                    <div className="mx-2 md:mx-4 *:py-0.5 md:*:p-1">
-                        <p className="text-sm md:text-xl lg:text-3xl">{user.username}</p>
-                        <p className="text-xs md:text-lg lg:text-xl">{dateOfBirthFormat(user.dob)}</p>
-                    </div>
-                    <Settings onClick={() => setIsPersonalizationModalOpen(true)} className="w-[26px] h-auto absolute bottom-0.5 right-2 p-1.5 rounded-full cursor-pointer hover:bg-gray-300 md:bottom-2.5 md:right-3.5 md:w-[30px] lg:w-[35px]"/>                 
+            <div className="page-spacer">
+                <div className="flex items-center profile-background h-[150px] relative p-3">
+                    <Settings onClick={() => setIsPersonalizationModalOpen(true)} className="w-[27px] h-auto absolute bottom-2 right-3.5 p-1 rounded-full cursor-pointer bg-white hover:bg-gray-300 md:bottom-3 md:right-7 md:w-[30px]"/>                 
                 </div>
-                <div className="">
-                    <div className="flex justify-end p-1.5">
-                        <button onClick={logout} className="py-1.5 px-3.5 text-xs bg-red-700 rounded-lg text-white font-semibold cursor-pointer my-2 lg:text-lg lg:my-3.5 lg:py-1.5 lg:px-6">Log Out</button>
+                <div className="flex items-center gap-x-1.5 bg-gray-50 px-3 py-0.5 sm:gap-x-3.5 sm:px-5 lg:px-7">
+                    <img src={ProfilePicture} alt="Profile Picture" draggable={false} className="w-[100px] h-auto p-1.5 sm:p-2 sm:w-[130px] lg:p-3 lg:w-[170px]"/>
+                    <div className="space-y-1 sm:space-y-2">
+                        <p className="font-semibold text-xl sm:text-2xl lg:text-3xl">{user.username}</p>
+                        <p className="text-sm sm:text-base lg:text-xl">{dateOfBirthFormat(user.dob)}</p>
                     </div>
-                    <hr className="text-gray-300 border-[1px]"/>
+                </div>
+                <div className="mt-3 px-5 md:px-7">
                     <div>
-                        <p className="p-1.5 mt-1.5 text-sm lg:mt-3 lg:text-lg ">Your Stories</p>
-                        { stories.length > 0 ? 
-                            <div className="flex flex-col gap-x-3 gap-y-4 py-6 z-0 sm:grid sm:grid-cols-3 sm:auto-rows-auto sm:place-items-center sm:max-h-[130px] sm:gap-y-4 lg:mt-[2rem] lg:py-0 lg:px-7">
+                        <p className="text-base lg:text-lg py-1 sm:pt-3">Your Stories</p>
+                        <hr className="my-0.5"/>
+                        { loading ? (
+                            <div className="flex flex-col gap-x-3 gap-y-5 my-3.5 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[1.5rem] md:gap-y-5 xl:gap-y-6">
+                                <SkeletonStoryCard/>
+                                <SkeletonStoryCard/>
+                                <SkeletonStoryCard/>
+                                <SkeletonStoryCard/>
+                                <SkeletonStoryCard/>
+                                <SkeletonStoryCard/>
+                            </div>
+                        ) : stories.length > 0 ? (
+                            <div className="flex flex-col gap-x-3 gap-y-5 my-3.5 z-0 h-full pb-10 sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[1.5rem] md:gap-y-5 xl:gap-y-6">
                                 {
-                                    (stories.map((story, key) => (                   
+                                    stories.map((story, key) => (                   
                                         <PersonalStoryCard 
                                             id={story._id}
+                                            thumbnail={story.thumbnail}
                                             title={story.title}
+                                            date={story.createdAt}
                                             categories={story.categories}
                                             reactions={story.reactions}
                                             modalFunction={() => handleOpenStory(story)}
+                                            editFunction={(e) => handleEdit(e)}
                                         />
-                                    )))
+                                    ))
                                 }
                             </div>
-                            : (
-                                <div className="flex justify-center items-center h-screen">
-                                    <p className="text-lg md:text-2xl lg:text-3xl">No Stories.</p>
-                                </div>
-                            )
-                        }
+                        ) : (
+                            <div className="flex justify-center items-center h-screen">
+                                <p className="text-lg md:text-2xl lg:text-3xl">No Stories.</p>
+                            </div>
+                        )}
                     </div>           
                 </div> 
             </div>
@@ -118,85 +120,18 @@ function Profile() {
     )
 }
 
-function PersonalStoryCard({ id, title, categories, modalFunction }) {
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-    const handleEdit = (e) => {
-        e.stopPropagation();
-    }
-
-    const openDeleteModal = (e) => {
-        e.stopPropagation();
-        setIsDeleteModalOpen(true);
-    }
-
-    const closeDeleteModal = (e) => {
-        e.stopPropagation();
-        setIsDeleteModalOpen(false);
-        window.location.reload();
-    }
-
-    const handleDelete = async (id) => {
-        try {
-            const deleteStory = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/story/delete/${id}`);
-        } catch (error) {
-            console.error("Error in deleting a story!", error);
-        }
-    }    
-
-    return(
-        <>
-            <div className="max-w-[350px] max-h-[150px] self-center w-full h-full rounded-xl bg-white shadow-lg py-2.5 px-3 border-[1px] hover:bg-gray-50 cursor-pointer relative after:p-3" onClick={modalFunction} tabIndex={0}>
-                <div className="px-2">
-                    <h1 className="font-bold text-sm text-center lg:text-xl">{title}</h1>
-                </div>
-                <div className="mt-3.5 px-2">
-                    <div className="flex flex-wrap gap-2">
-                        { categories.slice(0, 1).map((category, index) => (
-                            <CategoryBadge key={index} category={category}/>
-                        ))}
-
-                        {categories.length > 1 && (
-                            <span className="border-[1px] py-0.5 px-2 rounded-3xl text-xs text-gray-500 self-center">
-                                +{categories.length - 1}
-                            </span>
-                        )}
-                    </div>
-                </div>
-                <div className="absolute bottom-0 right-1.5 rounded-4xl p-1 flex *:flex *:p-1.5 *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg">
-                    <Link to={`/story/edit/${id}`} onClick={(e) => handleEdit(e)}>
-                        <Edit width={18} height={18}/>
-                    </Link>
-                    <div onClick={(e) => openDeleteModal(e)}>
-                        <Delete width={18} height={18}/>
-                    </div>                    
-                </div>
-
-                { isDeleteModalOpen && 
-                    <Popup 
-                        text="Are you sure you want to delete this Story?" 
-                        type="confirmation" 
-                        onClose={(e) => closeDeleteModal(e)} 
-                        onConfirm={(e) => { closeDeleteModal(e); handleDelete(id) }}
-                    />
-                }                  
-            </div>  
-        </>
-    )
-}
-
 function Personalization({ modalFunction }) {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
 
     const [darkMode, setDarkMode] = useState(false);
 
     return(
         <div className="fixed w-full h-full bg-gray-400/70 z-50">
-            <button className="text-5xl text-white p-3 cursor-pointer absolute top-0.5 right-2.5" onClick={modalFunction}>&times;</button>
             <div className="flex flex-col justify-center items-center h-full">
-                <div className="bg-white max-w-[250px] max-h-[400px] w-full h-full rounded-2xl px-5 py-4.5 md:max-w-[350px] md:max-h-[400px] lg:max-w-[450px] lg:max-h-[550px]">
+                <div className="bg-white max-w-[250px] max-h-[400px] w-full h-full rounded-2xl px-5 py-3.5 relative md:max-w-[350px] md:max-h-[400px] lg:max-w-[450px] lg:max-h-[550px]">
+                    <button className="text-3xl p-0.5 cursor-pointer absolute top-0.5 right-2" onClick={modalFunction}>&times;</button>
                     <div className="flex justify-center items-center w-full mb-3 lg:mb-7">
-                        <h1 className="font-bold text-lg md:text-xl lg:text-2xl">Personalization</h1>
+                        <h1 className="font-bold text-lg md:text-xl lg:text-2xl">Settings</h1>
                     </div>
                     <div className="divide-y-2 divide-gray-200">
                         {/* <div className="flex justify-between px-1.5 py-2.5">
@@ -210,6 +145,10 @@ function Personalization({ modalFunction }) {
                         <div className="flex justify-between px-1.5 py-1.5 lg:py-2.5">
                             <p className="text-xs self-center md:text-sm">Edit Account</p>
                             <Link to={`/profile/edit/${user._id}`} className="bg-black cursor-pointer py-1 px-2.5 text-white hover:bg-gray-600 text-xs rounded-full md:py-1.5 md:px-3.5">Edit</Link>
+                        </div>
+                        <div className="flex justify-between px-1.5 py-1.5 lg:py-2.5">
+                            <p className="text-xs self-center md:text-sm">Logout</p>
+                            <button onClick={logout} className="block bg-red-700 cursor-pointer py-1 px-2.5 text-white hover:bg-red-800 text-xs rounded-full md:py-1.5 md:px-3.5">Log Out</button>
                         </div>
                     </div>
                 </div>   

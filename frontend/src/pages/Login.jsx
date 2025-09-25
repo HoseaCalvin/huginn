@@ -29,7 +29,6 @@ function Login() {
             } else {
                 setInvalid(true);
             }
-
         } catch (error) {
             setError(true);
             console.error("Error: ", error);
@@ -40,10 +39,10 @@ function Login() {
 
     return(
         <div className="flex justify-around items-center h-screen">
-            <div className="w-[45%] h-screen hidden md:block">
+            <section className="w-[45%] h-screen hidden md:block">
                 <img src={Cascade} alt="Cascade" className="w-full h-full object-cover"/>
-            </div>
-            <div className="flex-1 flex items-center justify-center h-full relative">
+            </section>
+            <section className="flex-1 flex items-center justify-center h-full relative">
                 <Link to="/" className="absolute top-0.5 left-1">
                     <Back className="max-w-[45px] w-full h-auto p-2 sm:max-w-[55px] md:p-3 md:max-w-[65px]"/>
                 </Link>
@@ -66,10 +65,8 @@ function Login() {
                             <p className="block mx-auto my-2.5 text-center text-xs md:text-sm md:my-4">Not registered yet? Click <Link to='/register' className="underline font-bold cursor-pointer">here</Link> to register!</p>
                         </div>
                     </form>
-
                 </div>
-            </div>
-
+            </section>
         </div>
 
     )

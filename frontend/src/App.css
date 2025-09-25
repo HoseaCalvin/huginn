@@ -5,24 +5,31 @@ body, html {
   scroll-behavior: smooth;
 }
 
+.profile-background {
+  background-image: url(/profile-background.jpg);
+  background-position: center;
+  background-size: cover;   
+  background-repeat: no-repeat;
+}
+
 .page-spacer {
   @apply lg:ml-[190px];
 }
 
-.inner-page-spacer {
-  @apply max-w-[250px] w-full h-fit pt-4 px-5 mx-auto bg-white shadow-xl rounded-xl sm:max-w-[550px] sm:px-7 lg:rounded-2xl lg:max-w-[600px] lg:px-[2rem] lg:mx-24 xl:max-w-[700px];
+.section-spacer {
+  @apply flex flex-col justify-between py-3 md:flex-row md:py-5;
 }
 
 .navbar-set-width {
-  @apply w-[120px] max-w-[190px] lg:w-[190px];
+  @apply w-[130px] max-w-[190px] lg:w-[190px];
 }
 
 .list-item {
-  @apply py-1.5 my-1.5 text-sm cursor-pointer hover:bg-gray-200 rounded-xl flex gap-x-3.5 items-center lg:py-2 lg:px-7 lg:text-xl;
+  @apply py-1.5 my-0.5 text-base cursor-pointer hover:bg-gray-200 rounded-xl flex gap-x-3.5 items-center sm:my-1.5 lg:py-2 lg:px-7 lg:text-xl;
 }
 
 .primary-button {
-  @apply py-1.5 px-5 text-sm bg-black text-white rounded-2xl font-semibold lg:text-lg lg:py-2 lg:px-6;
+  @apply py-2 px-5 text-sm bg-black text-white rounded-xl font-semibold md:rounded-2xl lg:text-lg lg:py-2 lg:px-6;
 }
 
 .form-control {

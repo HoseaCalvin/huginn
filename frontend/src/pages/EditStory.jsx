@@ -1,8 +1,12 @@
+import Delete from "../assets/svgs/delete.svg?react";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Category } from "../components/Categories.jsx";
-import Popup from "../components/Popup.jsx";
+import { CategoryList } from "../components/Categories.jsx";
+import { PopupConfirmation } from "../components/Popup.jsx";
+import ThumbnailList from "../components/Thumbnails.jsx";
+import { toast } from "react-toastify";
 
 import { useParams, Link, useNavigate } from "react-router-dom";
 
@@ -11,8 +15,8 @@ function Edit() {
     const navigate = useNavigate();
 
     const [editStory, setEditStory] = useState('');
-    const [allCategories, setAllCategories] = useState([]);
     const [editCategories, setEditCategories] = useState([]);
+    const [editThumbnail, setEditThumbnail] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const MAX_STORY_LENGTH = 500;
@@ -26,121 +30,115 @@ function Edit() {
 
                 setEditStory(response.data.data.story);
                 setEditCategories(response.data.data.categories);
-
-                console.log(response.data.data.categories);
+                setEditThumbnail(response.data.data.thumbnail);
             } catch (error) {
-                
-            }
-        }
-
-        const fetchAllCategories = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/category/get/`)
-
-                setAllCategories(response.data);
-            } catch (error) {
-                console.error("Error in fetching all categories!", error);
+                console.error("Error in fetching Story data!", error);
             }
         }
 
         fetchStoryData();
-        fetchAllCategories();
     }, []);
 
     const trackStoryField = (e) => {
         setEditStory(e.target.value.slice(0, MAX_STORY_LENGTH));
     };
 
-    const validateStory = () => {
-        if(!editStory || editStory.length <= 1) {
-            return false;
+    const validateForm = () => {
+        let isStoryValid = true;
+        let isCategoryValid = true;
+
+        if(!editStory || editStory.length <= 0) {
+            isStoryValid = false;
         }
 
-        return true
-    }
-
-    const validateCategory = () => {
-        if(editCategories.length === 0) {
-            return false;
+        if(editCategories.length === 0 || editCategories.length > 2) {
+            isCategoryValid = false;
         }
 
-        return true;
+        return isStoryValid && isCategoryValid;
     }
 
-    const handleCategory = (category) => {
-        setEditCategories((prevCategory) => {
-            if(prevCategory.includes(category)) {
-                return prevCategory.filter((selectedCategory) => category !== selectedCategory);
-            } else {
-                return [...prevCategory, category];
-            }
-        })
+    const handleCategory = (categoryName) => {
+        setEditCategories((prev) => 
+            prev.includes(categoryName) ? prev.filter((selectedCategory) => selectedCategory !== categoryName) : [...prev, categoryName]
+        );
     }
 
-    const isFormValid = validateStory() && validateCategory();
-
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
         const data = {
             story: editStory,
-            categories: editCategories
+            categories: editCategories,
+            thumbnail: editThumbnail
         }
 
         try {
-            axios.patch(`${import.meta.env.VITE_API_BASE_URL}/api/story/update/${id}`, data);
+            await axios.patch(`${import.meta.env.VITE_API_BASE_URL}/api/story/update/${id}`, data);
 
-            setIsPopupOpen(true);
+            toast.success("Story successfully edited!");
+            navigate('/profile');
         } catch (error) {
+            toast.error("Failed to update Story!");
             console.error("Error in updating a Story!", error);
         }
     }
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/story/delete/${id}`);
+
+            toast.success("Story successfully deleted!");
+            navigate('/profile');
+        } catch (error) {
+            toast.error("Failed to delete Story!");
+            console.error("Error in deleting a story!", error);
+        }
+    }
+
     return(
-        <div className="bg-gray-100 p-5 h-screen flex justify-center items-center page-spacer">
-            <div className="inner-page-spacer">
-                <div className="my-5 lg:mb-4 xl:mb-7">
-                    <p className="text-xs font-semibold py-2 md:text-sm lg:text-lg">Story:</p>
-                    <textarea value={editStory} onChange={trackStoryField} required className="w-full p-1 border-[1px] border-gray-500 max-h-[300px] rounded-md h-full resize-none text-xs lg:text-base"></textarea>
-                    <p className="text-xs p-0.5 text-gray-400">{storyRemaining} words left</p>                
+        <>
+            { isPopupOpen &&
+                <PopupConfirmation
+                    header={"Are you sure you want to delete this Story?"}
+                    text={"This action cannot be reversed. Doing so will remove your Story forever!"}
+                    onClose={() => setIsPopupOpen(false)}
+                    onConfirm={() => handleDelete(id)}
+                />
+            }
+
+            <main className="py-12 px-9 page-spacer sm:px-14 md:py-14 md:px-24">
+                <h1 className="font-bold py-0.5 text-base lg:text-lg">Edit Story</h1>
+                <hr className="mt-1.5 mb-3 text-gray-400 lg:mt-2"/>
+                <div className="w-full *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg">
+                    <Delete onClick={() => setIsPopupOpen(true)} className="w-[25px] h-auto justify-self-end p-0.5 md:p-1 md:w-[27px]"/>
                 </div>
-                <div className="my-5 lg:mb-4 xl:mb-7">
-                    <p className="text-xs md:text-sm lg:text-lg font-semibold">Category:</p>
-                    <div className="flex min-h-[25px] h-full my-1.5 flex-wrap">
-                        { editCategories.length <= 0 ? 
-                            <p className="text-gray-400 text-xs py-1 md:text-sm">No Categories selected.</p> :
-                            <div className="flex overflow-x-scroll scrollbar-hide">
-                                {
-                                    editCategories.map((category) => (
-                                        <Category name={category} onClick={() => handleCategory(category)}/>
-                                    ))
-                                }
-                            </div> 
-                        }
-                    </div>
-                    <div className="mt-3">
-                        <div onWheel={(e) => e.currentTarget.scrollLeft += e.deltaY} className="flex overflow-x-scroll custom-scrollbar border-[1.8px] p-1.5 rounded-md border-gray-300 lg:py-4 lg:px-3 lg:overflow-x-auto">
-                            {
-                                allCategories.map((category) => (
-                                    <Category name={category} selected={editCategories.includes(category)} onClick={() => handleCategory(category)}/>
-                                ))
-                            }
+                <form onSubmit={handleSubmit}>
+                    <section className="section-spacer">
+                        <p className="text-xs font-semibold py-1 md:text-base">Story</p>
+                        <div className="w-full md:w-4/5">
+                            <textarea value={editStory} onChange={trackStoryField} required className="w-full p-1 border-[1px] border-gray-500 max-h-[300px] rounded-md h-full resize-none text-xs lg:text-base"></textarea>
+                            <p className="text-xs p-0.5 text-gray-400">{storyRemaining} words left</p>      
                         </div>
-                    </div>
-                </div>
-                <div className="flex justify-center mx-auto w-full mt-6 mb-4 py-5">
-                    <button disabled={isFormValid === false} className={`primary-button ${isFormValid ? 'cursor-pointer hover:bg-gray-600' : 'opacity-60 cursor-no-drop'}`} onClick={handleSubmit}>Submit</button>
-                    { isPopupOpen && 
-                        <Popup 
-                            text="Story has been edited successfully!" 
-                            type="affirmative"
-                            onConfirm={() => {
-                                setIsPopupOpen(false);
-                                navigate("/profile");
-                            }} 
-                        />
-                    }
-                </div>
-            </div>
-        </div>
+                    </section>
+                    <section className="section-spacer">
+                        <p className="text-xs font-semibold py-1 md:text-base">Category</p>
+                        <div className="w-full py-1 flex flex-wrap rounded-md md:py-0 md:w-4/5">
+                            <CategoryList categoryList={editCategories} onToggle={handleCategory}/>
+                        </div>
+                    </section>
+                    <section className="section-spacer">
+                        <p className="text-xs font-semibold py-1 md:text-base">Thumbnail</p>
+                        <div className="w-full py-1 flex flex-wrap md:py-0 md:w-4/5">
+                            <ThumbnailList selectedPicture={editThumbnail} setSelectedPicture={setEditThumbnail}/>
+                        </div>
+                    </section>
+                    <section className="flex justify-center mx-auto w-full mt-6 mb-4 py-5">
+                        <button type="submit" disabled={validateForm === false} className={`primary-button ${validateForm ? 'cursor-pointer hover:bg-gray-600' : 'opacity-60 cursor-no-drop'}`}>Update</button>
+                    </section>
+                </form>
+            </main>        
+        </>
     )
 }
 

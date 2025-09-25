@@ -14,6 +14,7 @@ import CreateStory from "../pages/CreateStory.jsx";
 import Profile from "../pages/Profile.jsx";
 import EditStory from "../pages/EditStory.jsx";
 import EditProfile from "../pages/EditProfile.jsx";
+import NotFound from "../pages/NotFound.jsx";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '*',
+    element: <NotFound/>
+  }
 ]);
 
 

@@ -105,12 +105,12 @@ export const findStory = async (req, res) => {
 
 export const updateStory = async (req, res) => {
     const { id } = req.params;
-    const { story, categories } = req.body;
+    const { story, categories, thumbnail } = req.body;
 
     try {
         const updatedStory = await Story.findByIdAndUpdate(
             id,
-            { $set: { story, categories } },
+            { $set: { story, categories, thumbnail } },
             { new: true, runValidators: true }
         );
 
