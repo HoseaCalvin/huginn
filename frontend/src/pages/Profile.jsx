@@ -78,7 +78,7 @@ function Profile() {
                         <p className="text-sm sm:text-base lg:text-xl">{dateOfBirthFormat(user.dob)}</p>
                     </div>
                 </div>
-                <div className="mt-3 px-5 md:px-7">
+                <div className="mt-3 px-4 pb-12 md:px-7">
                     <div>
                         <p className="text-base lg:text-lg py-1 sm:pt-3">Your Stories</p>
                         <hr className="my-0.5"/>
@@ -92,7 +92,7 @@ function Profile() {
                                 <SkeletonStoryCard/>
                             </div>
                         ) : stories.length > 0 ? (
-                            <div className="flex flex-col gap-x-3 gap-y-5 my-3.5 z-0 h-full pb-10 sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[1.5rem] md:gap-y-5 xl:gap-y-6">
+                            <div className="flex flex-col gap-x-3 gap-y-5 my-6 mx-7 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] xl:gap-y-7 xl:w-fit xl:mx-auto">
                                 {
                                     stories.map((story, key) => (                   
                                         <PersonalStoryCard 

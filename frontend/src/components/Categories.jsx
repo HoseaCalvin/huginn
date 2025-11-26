@@ -33,7 +33,7 @@ export function CategoryBadge({ index, category }) {
     }
 
     return(
-        <span key={index} className={`border-[1px] py-0.5 px-3.5 rounded-full text-xs self-center ${categoryColors[category] || ''} lg:px-5`}>
+        <span key={index} className={`border-[1px] px-3.5 rounded-full text-[10px] self-center ${categoryColors[category] || ''} sm:py-0.5 sm:text-xs lg:px-5`}>
             {category}
         </span>
     )

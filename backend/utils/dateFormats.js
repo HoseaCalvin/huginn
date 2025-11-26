@@ -13,3 +13,11 @@ export const internationalFormat = (date) => {
         day: "numeric"
     })
 }
+
+export const textFormat = (date) => {
+  return new Date(date).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+  });
+};

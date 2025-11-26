@@ -21,6 +21,10 @@ export function PopupConfirmation({ header, text, onClose, onConfirm }) {
             </div>
         </div>
     )
-
     // use enum for stricter control.
+}
+
+
+export function PopupPositive() {
+    
 }

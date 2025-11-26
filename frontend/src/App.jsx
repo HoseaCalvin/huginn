@@ -3,6 +3,7 @@ import './App.css';
 import { ToastContainer } from "react-toastify";
 
 import AuthProvider from "./hooks/AuthContext.jsx"
+import ThemeProvider from "./hooks/ThemeContext.jsx";
 import AppRoutes from "./routes/index.jsx"
 
 function App() {
@@ -10,8 +11,10 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <AppRoutes/>
-        <ToastContainer/>
+        <ThemeProvider>
+          <AppRoutes/>
+          <ToastContainer/>
+        </ThemeProvider>
       </AuthProvider>
     </>
   )

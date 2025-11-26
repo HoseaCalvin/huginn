@@ -71,9 +71,8 @@ function EditProfile() {
     }
 
     return(
-        <div className="page-spacer">
-            <div className="flex items-center profile-background h-[150px] relative p-3">
-            </div>
+        <main className="page-spacer">
+            <div className="flex items-center profile-background h-[150px] relative p-3"></div>
             <div className="flex items-center gap-x-1.5 bg-gray-50 px-3 py-0.5 sm:gap-x-3.5 sm:px-5 lg:px-7">
                 <img src={ProfilePicture} alt="Profile Picture" draggable={false} className="w-[100px] h-auto p-1.5 sm:p-2 sm:w-[130px] lg:p-3 lg:w-[170px]"/>
                 <div className="space-y-1 sm:space-y-2">
@@ -81,24 +80,26 @@ function EditProfile() {
                     <p className="text-sm sm:text-base lg:text-xl">{dateOfBirthFormat(dob)}</p>
                 </div>
             </div>
-            <div className="space-y-5 px-8 py-6 sm:px-14 md:px-20 lg:px-24">
-                <div>
-                    <p className="text-xs py-1 font-semibold md:text-sm">Username</p>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full p-1 border text-xs border-gray-500 rounded-sm md:text-sm lg:text-base"/>
+            <div className="mx-auto max-w-[1300px]">
+                <div className="space-y-5 px-8 py-6 sm:px-14 md:px-20 lg:px-24">
+                    <div>
+                        <p className="text-xs py-1 font-semibold md:text-sm">Username</p>
+                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full p-1 border text-xs border-gray-500 rounded-sm md:text-sm lg:text-base"/>
+                    </div>
+                    <div>
+                        <p className="text-xs py-1 font-semibold md:text-sm">Password</p>
+                        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} className=" w-full p-1 border text-xs border-gray-500 rounded-sm md:text-sm lg:text-base"/>
+                    </div>
+                    <div>
+                        <p className="text-xs py-1 font-semibold md:text-sm">Date of Birth</p>
+                        <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className="p-1 border text-xs border-gray-500 rounded-sm md:text-sm lg:text-base"/>
+                    </div>
                 </div>
-                <div>
-                    <p className="text-xs py-1 font-semibold md:text-sm">Password</p>
-                    <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} className=" w-full p-1 border text-xs border-gray-500 rounded-sm md:text-sm lg:text-base"/>
-                </div>
-                <div>
-                    <p className="text-xs py-1 font-semibold md:text-sm">Date of Birth</p>
-                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className="p-1 border text-xs border-gray-500 rounded-sm md:text-sm lg:text-base"/>
+                <div className="px-8 py-12 w-full h-fit text-center">
+                    <button disabled={validateForm() === false} className={`primary-button hover:bg-gray-500 ${validateForm() ? 'cursor-pointer' : 'opacity-60 cursor-no-drop'}`} onClick={() => handleUpdate()}>Update</button>
                 </div>
             </div>
-            <div className="px-8 py-12 w-full h-fit text-center">
-                <button disabled={validateForm() === false} className={`primary-button hover:bg-gray-500 ${validateForm() ? 'cursor-pointer' : 'opacity-60 cursor-no-drop'}`} onClick={() => handleUpdate()}>Update</button>
-            </div>
-        </div>
+        </main>
     )
 }
 

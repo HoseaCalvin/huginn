@@ -85,7 +85,7 @@ export const findStory = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const story = await Story.findById(id);
+        const story = await Story.findById(id).populate("userId", "username");;
 
         if(!story) {
             return res.status(404).json({
@@ -138,10 +138,19 @@ export const deleteStory = async (req, res) => {
     const { id } = req.params;
 
     try {
-        await Story.findByIdAndDelete(id);
+        const deletedStory = await Story.findByIdAndDelete(id);
+
+        if(!deletedStory) {
+            return res.status(404).json({
+                success: false,
+                message: "Story not found!"
+            });
+        }
+
         res.status(200).json({
             success: true,
-            message: 'Story deleted!'
+            data: deletedStory,
+            message: "Story deleted!"
         });
     } catch (error) {
         console.error('Error in deleting a Story!', error.message);

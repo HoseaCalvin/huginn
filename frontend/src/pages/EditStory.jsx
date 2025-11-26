@@ -107,36 +107,38 @@ function Edit() {
                 />
             }
 
-            <main className="py-12 px-9 page-spacer sm:px-14 md:py-14 md:px-24">
-                <h1 className="font-bold py-0.5 text-base lg:text-lg">Edit Story</h1>
-                <hr className="mt-1.5 mb-3 text-gray-400 lg:mt-2"/>
-                <div className="w-full *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg">
-                    <Delete onClick={() => setIsPopupOpen(true)} className="w-[25px] h-auto justify-self-end p-0.5 md:p-1 md:w-[27px]"/>
+            <main className="page-spacer p-8 sm:p-10 md:p-12 lg:p-16">
+                <div className="mx-auto max-w-[1300px]">
+                    <h1 className="font-bold py-0.5 text-base lg:text-lg">Edit Story</h1>
+                    <hr className="mt-1.5 mb-3 text-gray-400 lg:mt-2"/>
+                    <div className="w-full *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg">
+                        <Delete onClick={() => setIsPopupOpen(true)} className="w-[25px] h-auto justify-self-end p-0.5 md:p-1 md:w-[27px]"/>
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <section className="section-spacer">
+                            <p className="text-xs font-semibold py-1 md:text-base">Story</p>
+                            <div className="w-full md:w-4/5">
+                                <textarea value={editStory} onChange={trackStoryField} required className="w-full p-1 border-[1px] border-gray-500 max-h-[300px] rounded-md h-full resize-none text-xs lg:text-base"></textarea>
+                                <p className="text-xs p-0.5 text-gray-400">{storyRemaining} words left</p>      
+                            </div>
+                        </section>
+                        <section className="section-spacer">
+                            <p className="text-xs font-semibold py-1 md:text-base">Category</p>
+                            <div className="w-full py-1 flex flex-wrap rounded-md md:py-0 md:w-4/5">
+                                <CategoryList categoryList={editCategories} onToggle={handleCategory}/>
+                            </div>
+                        </section>
+                        <section className="section-spacer">
+                            <p className="text-xs font-semibold py-1 md:text-base">Thumbnail</p>
+                            <div className="w-full py-1 flex flex-wrap md:py-0 md:w-4/5">
+                                <ThumbnailList selectedPicture={editThumbnail} setSelectedPicture={setEditThumbnail}/>
+                            </div>
+                        </section>
+                        <section className="flex justify-center mx-auto w-full mt-6 mb-4 py-5">
+                            <button type="submit" disabled={validateForm === false} className={`primary-button ${validateForm ? 'cursor-pointer hover:bg-gray-600' : 'opacity-60 cursor-no-drop'}`}>Update</button>
+                        </section>
+                    </form>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <section className="section-spacer">
-                        <p className="text-xs font-semibold py-1 md:text-base">Story</p>
-                        <div className="w-full md:w-4/5">
-                            <textarea value={editStory} onChange={trackStoryField} required className="w-full p-1 border-[1px] border-gray-500 max-h-[300px] rounded-md h-full resize-none text-xs lg:text-base"></textarea>
-                            <p className="text-xs p-0.5 text-gray-400">{storyRemaining} words left</p>      
-                        </div>
-                    </section>
-                    <section className="section-spacer">
-                        <p className="text-xs font-semibold py-1 md:text-base">Category</p>
-                        <div className="w-full py-1 flex flex-wrap rounded-md md:py-0 md:w-4/5">
-                            <CategoryList categoryList={editCategories} onToggle={handleCategory}/>
-                        </div>
-                    </section>
-                    <section className="section-spacer">
-                        <p className="text-xs font-semibold py-1 md:text-base">Thumbnail</p>
-                        <div className="w-full py-1 flex flex-wrap md:py-0 md:w-4/5">
-                            <ThumbnailList selectedPicture={editThumbnail} setSelectedPicture={setEditThumbnail}/>
-                        </div>
-                    </section>
-                    <section className="flex justify-center mx-auto w-full mt-6 mb-4 py-5">
-                        <button type="submit" disabled={validateForm === false} className={`primary-button ${validateForm ? 'cursor-pointer hover:bg-gray-600' : 'opacity-60 cursor-no-drop'}`}>Update</button>
-                    </section>
-                </form>
             </main>        
         </>
     )

@@ -6,12 +6,12 @@ import { internationalFormat } from "../../../backend/utils/dateFormats.js";
 
 import { CategoryBadge } from "./Categories.jsx";
 
-export function StoryCard({ thumbnail, title, date, categories, modalFunction }) {
+export function StoryCard({ id, thumbnail, title, date, categories }) {
     let limit = 1;
 
     return(
         <>
-            <div className="max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3.5 border-[1px] hover:bg-gray-50 cursor-pointer overflow-hidden after:p-3" onClick={modalFunction} tabIndex={0}>
+            <Link to={`/story/get/${id}`} className="max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3.5 border-[1px] cursor-pointer overflow-hidden transition-all ease-in-out duration-300 hover:bg-gray-50 hover:shadow-xl after:p-3 xl:min-w-[400px]" tabIndex={0}>
                 <section>
                     <img src={`/story-pictures/${thumbnail}`} className="max-h-[100px] w-full h-full block object-cover"/>
                 </section>
@@ -21,9 +21,9 @@ export function StoryCard({ thumbnail, title, date, categories, modalFunction })
                     </section>
                     <section className="flex justify-between mt-1.5 px-1 lg:mt-4">
                         <div className="self-center">
-                            <p className="text-sm">{internationalFormat(date)}</p>
+                            <p className="text-gray-400 text-xs lg:text-sm">{internationalFormat(date)}</p>
                         </div>
-                        <div className="self-center space-x-2">
+                        <div className="self-center space-x-1">
                             { categories.slice(0, limit).map((category, index) => (
                                 <CategoryBadge key={index} category={category}/>
                             ))}
@@ -36,7 +36,7 @@ export function StoryCard({ thumbnail, title, date, categories, modalFunction })
                         </div>
                     </section>
                 </div>
-            </div>
+            </Link>
         </>
     )
 }
@@ -44,7 +44,7 @@ export function StoryCard({ thumbnail, title, date, categories, modalFunction })
 export function PersonalStoryCard({ id, thumbnail, title, date, categories, modalFunction, editFunction }) {
     return(
         <>
-            <div className="max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3.5 border-[1px] hover:bg-gray-50 cursor-pointer overflow-hidden relative after:p-3" onClick={modalFunction} tabIndex={0}>
+            <Link to={`/story/get/${id}`} className="relative max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3.5 border-[1px] cursor-pointer overflow-hidden transition-all ease-in-out duration-300 hover:bg-gray-50 hover:shadow-xl after:p-3 xl:min-w-[400px]" onClick={modalFunction} tabIndex={0}>
                 <section>
                     <img src={`/story-pictures/${thumbnail}`} className="max-h-[100px] w-full h-full block object-cover"/>
                 </section>
@@ -54,9 +54,9 @@ export function PersonalStoryCard({ id, thumbnail, title, date, categories, moda
                     </section>
                     <section className="flex justify-between mt-1.5 px-1 lg:mt-2">
                         <div className="self-center">
-                            <p className="text-sm">{internationalFormat(date)}</p>
+                            <p className="text-gray-400 text-xs lg:text-sm">{internationalFormat(date)}</p>
                         </div>
-                        <div className="self-center space-x-2">
+                        <div className="self-center space-x-1">
                             { categories.slice(0, 1).map((category, index) => (
                                 <CategoryBadge key={index} category={category}/>
                             ))}
@@ -74,7 +74,7 @@ export function PersonalStoryCard({ id, thumbnail, title, date, categories, moda
                         <Edit width={18} height={18}/>
                     </Link>          
                 </div>              
-            </div>  
+            </Link>  
         </>
     )
 }

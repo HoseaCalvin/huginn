@@ -4,9 +4,9 @@ import { createStory, findStories, findUserStories, findStory, updateStory, dele
 
 const router = express.Router();
 
-router.post('/create/', createStory);
-router.get('/get/', findStories);
-router.get('/get/personal/', findUserStories);
+router.post('/create', createStory);
+router.get('/get', findStories);
+router.get('/get/personal', findUserStories);
 router.get('/get/:id', findStory);
 router.patch('/update/:id', updateStory)
 router.delete('/delete/:id', deleteStory);

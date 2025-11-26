@@ -5,7 +5,7 @@ import Communication from "../assets/side-pictures/communication.jpg";
 import Shield from "../assets/svgs/shield.svg?react";
 import Phone from "../assets/svgs/phone.svg?react";
 import Lock from "../assets/svgs/lock.svg?react";
-import ProfilePicture from "../assets/svgs/profile.svg?react";
+import Person from "../assets/svgs/person.svg?react";
 import GitHub from "../assets/svgs/github.svg?react";
 
 import { useRef } from "react";
@@ -126,7 +126,7 @@ function TestimonyCard({ name, testimony }) {
     return(
         <div className="max-w-[500px] w-[250px] min-h-[200px] h-[230px] mx-3.5 my-1 shrink-0  bg-white drop-shadow-xl rounded-xl border border-gray-500 overflow-hidden md:mx-5 md:w-[350px] lg:w-[400px]">
             <section className="bg-black flex items-center pl-5 p-4.5 space-x-2">
-                <ProfilePicture alt="Profile Picture" draggable={false} className="text-white max-h-[40px] w-[30px] md:h-full"/>
+                <Person alt="Profile Picture" draggable={false} className="text-white max-h-[40px] w-[30px] md:h-full"/>
                 <h1 className="font-bold px-2 text-white text-base md:text-lg lg:text-xl">{name}</h1>
             </section>
             <section className="py-2 px-5 space-y-1.5">

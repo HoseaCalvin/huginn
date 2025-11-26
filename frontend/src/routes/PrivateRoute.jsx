@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext.jsx";
 
 import Sidebar from "../components/Sidebar.jsx";
+import FooterBar from "../components/FooterBar.jsx";
 
 function PrivateRoute() {
     const { isAuthenticated, loading } = useAuth();
@@ -16,7 +17,9 @@ function PrivateRoute() {
     }
 
     if(!isAuthenticated) {
-        return <Navigate to='/login'/>;
+        return(
+            <Navigate to='/login'/>
+        );
     }
 
     return (
@@ -25,6 +28,7 @@ function PrivateRoute() {
             <div className="flex-1"> 
                 <Outlet/>
             </div>
+            <FooterBar/>
         </div>
     );
 }

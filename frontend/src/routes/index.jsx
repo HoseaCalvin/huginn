@@ -15,6 +15,7 @@ import Profile from "../pages/Profile.jsx";
 import EditStory from "../pages/EditStory.jsx";
 import EditProfile from "../pages/EditProfile.jsx";
 import NotFound from "../pages/NotFound.jsx";
+import StoryPage from "../pages/StoryPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,14 @@ const router = createBrowserRouter([
       {
         path: '/story',
         children: [
+          { 
+            path: 'get/:id', 
+            element: (
+              <StoryProvider>
+                <StoryPage/>
+              </StoryProvider>
+            )
+          },
           { path: 'create', element: <CreateStory /> },
           { path: 'edit/:id', element: <EditStory /> },
         ],

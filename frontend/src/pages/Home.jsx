@@ -9,21 +9,8 @@ import StoryModal from "../components/StoryModal.jsx";
 
 function Home() {
     const { stories, loading, error } = useStories();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedStory, setSelectedStory] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [searchResult, setSearchResult] = useState('');
-
-    const handleOpenStory = (story) => {
-        setIsModalOpen(true);
-        setSelectedStory(story);
-    }
-
-    const handleCloseStory = () => {
-        setIsModalOpen(false);
-        setSelectedStory(null);
-        window.location.reload();
-    }
 
     const filteredStories = stories.filter((story) => {
         let searchedStories = story.title.toLowerCase().includes(searchResult.toLowerCase());
@@ -37,18 +24,6 @@ function Home() {
 
     return(
         <>
-            { isModalOpen && selectedStory &&
-                <StoryModal
-                    id={selectedStory._id} 
-                    username={selectedStory.userId.username}
-                    title={selectedStory.title}
-                    categories={selectedStory.categories}
-                    story={selectedStory.story}
-                    reactions={selectedStory.reactions}
-                    modalFunction={() => handleCloseStory()}
-                />
-            }
-
             <main className="page-spacer">
                 <div className="bg-[#FBFBFB] w-full py-3.5 px-3 shadow-md flex justify-end items-center gap-x-2 lg:gap-x-4 lg:px-5">
                     <section>
@@ -80,11 +55,12 @@ function Home() {
                         <SkeletonStoryCard/>                    
                     </div>
                 ) : filteredStories.length > 0 ? (
-                    <div className="flex flex-col gap-x-3 gap-y-5 my-6 mx-7 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] xl:gap-y-7">
+                    <div className="flex flex-col gap-x-3 gap-y-5 my-6 mx-7 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] xl:gap-y-7 xl:w-fit xl:mx-auto">
                         {
                             filteredStories.map((story, key) => (                   
                                 <StoryCard
                                     key={key}
+                                    id={story._id}
                                     thumbnail={story.thumbnail}
                                     title={story.title}
                                     date={story.createdAt}
