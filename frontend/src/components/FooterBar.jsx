@@ -12,7 +12,8 @@ function FooterBar() {
     const isNavigated = (path) => location.pathname === path;
 
     return(
-        <footer className="fixed bottom-0 left-0 bg-[#FBFBFB] rounded-t-lg border-t border-t-gray-400 w-screen h-[60px] p-2 flex justify-around items-center lg:hidden">
+        <footer className="fixed bottom-0 left-0 bg-[#FBFBFB] rounded-t-lg border-t border-t-gray-400 w-screen h-[60px] p-2 flex justify-around items-center lg:hidden
+                            dark:bg-[#111418] dark:text-[#F1F5F9]">
             <Link to="/home" className="p-1.5 w-fit">
                 <Home strokeWidth={`${isNavigated('/home') ? 2 : 1.3}`} className="w-6 h-auto mx-auto"/>
                 <h1 className={`text-center text-xs ${isNavigated('/home') ? "font-bold" : ""}`}>Home</h1>

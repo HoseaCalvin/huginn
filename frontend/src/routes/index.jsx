@@ -1,21 +1,25 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout.jsx";
-
 import PrivateRoute from "./PrivateRoute.jsx";
 
 import StoryProvider from "../hooks/StoryContext.jsx";
 
 import Landing from "../pages/Landing.jsx";
-import Login from "../pages/Login.jsx";
-import Register from "../pages/Register.jsx";
+
+import Login from "../pages/auth/Login.jsx";
+import Register from "../pages/auth/Register.jsx";
+
 import Home from "../pages/Home.jsx";
-import CreateStory from "../pages/CreateStory.jsx";
-import Profile from "../pages/Profile.jsx";
-import EditStory from "../pages/EditStory.jsx";
-import EditProfile from "../pages/EditProfile.jsx";
+
+import CreateStory from "../pages/story/CreateStory.jsx";
+import StoryPage from "../pages/story/StoryPage.jsx";
+import EditStory from "../pages/story/EditStory.jsx";
+
+import Profile from "../pages/profile/Profile.jsx";
+import EditProfile from "../pages/profile/EditProfile.jsx";
+
 import NotFound from "../pages/NotFound.jsx";
-import StoryPage from "../pages/StoryPage.jsx";
 
 const router = createBrowserRouter([
   {

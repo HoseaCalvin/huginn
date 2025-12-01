@@ -7,14 +7,12 @@ function ThemeProvider({ children }) {
         () => localStorage.getItem("theme") === "dark"
     );
     
-    const root = window.document.documentElement;
-
     useEffect(() => {
-        if(!isDarkMode) {
-            root.classList.add("dark");
+        if(isDarkMode) {
+            document.documentElement.classList.add("dark");
             localStorage.setItem("theme", "dark");
         } else {
-            root.classList.remove("dark");
+            document.documentElement.classList.remove("dark");
             localStorage.setItem("theme", "light");
         }
     }, [isDarkMode]);

@@ -1,7 +1,6 @@
 import Comment from "../models/comment.model.js";
 
 export const createComment = async (req, res) => {
-    const { id } = req.params;
     const comment = req.body;
 
     if(!comment) {
@@ -113,7 +112,7 @@ export const deleteComment = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const deletedComment = await Comment.findById(id);
+        const deletedComment = await Comment.findByIdAndDelete(id);
 
         if(!deletedComment) {
             return res.status(404).json({

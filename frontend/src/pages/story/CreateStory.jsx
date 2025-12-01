@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "../hooks/AuthContext.jsx";
+import { useAuth } from "../../hooks/AuthContext.jsx";
 
-import { CategoryList } from "../components/Categories.jsx";
-import ThumbnailList from "../components/Thumbnails.jsx";
+import { CategoryList } from "../../components/Categories.jsx";
+import ThumbnailList from "../../components/Thumbnails.jsx";
 import { toast } from "react-toastify";
 
 import axios from "axios";
@@ -44,7 +44,7 @@ function Create() {
             isStoryValid = false;
         }
 
-        if(categories.length === 0 || categories.length > 2) {
+        if(categories.length === 0 || categories.length > 3) {
             isCategoryValid = false;
         }
 
@@ -88,37 +88,40 @@ function Create() {
     return(
         <main className="page-spacer p-8 sm:p-10 md:p-12 lg:p-16">
             <div className="mx-auto max-w-[1300px]">
-                <h1 className="font-bold py-0.5 text-base lg:text-lg">Create Story</h1>
+                <h1 className="font-bold py-0.5 text-base lg:text-lg
+                            dark:text-[#F1F5F9]">Create Story</h1>
                 <hr className="mt-1.5 mb-3 text-gray-400 lg:mt-2"/>
                 <form onSubmit={handleSubmit}>
                     <section className="section-spacer">
-                        <p className="text-xs font-semibold py-1 md:text-base lg:text-lg">Title</p>
+                        <p className="section-text">Title</p>
                         <div className="w-full md:w-4/5">
-                            <input type="text" value={title} onChange={trackTitleField} className="w-full px-1 py-1.5 border border-gray-500 rounded-sm text-xs md:text-base"/>
+                            <input type="text" value={title} onChange={trackTitleField} className="w-full px-1 py-1.5 border border-gray-500 rounded-sm text-xs md:text-base
+                                                                                                dark:text-[#F1F5F9]"/>
                             <p className="text-xs p-0.5 text-gray-400">{titleRemaining} words left</p>
                         </div>
                     </section>
                     <section className="section-spacer">
-                        <p className="text-xs font-semibold py-1 md:text-base lg:text-lg">Story</p>
+                        <p className="section-text">Story</p>
                         <div className="w-full md:w-4/5">
-                            <textarea value={story} onChange={trackStoryField} className="w-full m-0 p-1 border border-gray-500 min-h-[120px] rounded-sm h-full resize-none text-xs md:max-h-[450px] md:text-base"></textarea>
+                            <textarea value={story} onChange={trackStoryField} className="w-full m-0 p-1 border border-gray-500 min-h-[120px] rounded-sm h-full resize-none text-xs md:max-h-[450px] md:text-base
+                                                                                        dark:text-[#F1F5F9]"></textarea>
                             <p className="text-xs p-0.5 text-gray-400">{storyRemaining} words left</p>         
                         </div>
                     </section>
                     <section className="section-spacer">
-                        <p className="text-xs font-semibold py-1 md:text-base lg:text-lg">Category</p>
+                        <p className="section-text">Category</p>
                         <div className="w-full py-1 flex flex-wrap rounded-md md:py-0 md:w-4/5">
                             <CategoryList categoryList={categories} onToggle={handleCategory}/>
                         </div>
                     </section>
                     <section className="section-spacer">
-                        <p className="text-xs font-semibold py-1 md:text-base lg:text-lg">Thumbnail</p>
+                        <p className="section-text">Thumbnail</p>
                         <div className="w-full py-1 flex flex-wrap md:py-0 md:w-4/5">
                             <ThumbnailList selectedPicture={thumbnail} setSelectedPicture={handleThumbnail}/>
                         </div>
                     </section>
                     <div className="flex justify-center mx-auto w-full mt-6 mb-4 py-5">
-                        <button type="submit" disabled={validateForm() === false} className={`primary-button ${validateForm() ? 'cursor-pointer' : 'opacity-60 cursor-no-drop'}`}>Submit</button>
+                        <button type="submit" disabled={validateForm() === false} className={`primary-button ${validateForm() ? 'cursor-pointer' : 'opacity-60 pointer-events-none'}`}>Submit</button>
                     </div>
                 </form>    
             </div>

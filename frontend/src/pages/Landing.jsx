@@ -34,7 +34,7 @@ function Landing() {
                 scrollIntoTestimonies={() => scrollToSection(testimoniesRef)}
             />
 
-            <article ref={aboutRef} className="flex flex-col-reverse justify-center items-center h-screen shadow-sm pt-[7.5rem] pb-[5rem] sm:pb-0 md:flex-row lg:pt-[9rem]">
+            <article ref={aboutRef} className="bg-white flex flex-col-reverse justify-center items-center h-screen shadow-sm pt-[7.5rem] pb-[5rem] sm:pb-0 md:flex-row lg:pt-[9rem]">
                 <section className="w-full space-y-2.5 mx-1 px-6 md:px-2 md:w-1/2 md:mx-12 md:space-y-3.5 lg:mx-16 lg:space-y-5">
                     <div className="space-y-1 md:space-y-0">
                         <p className="font-semibold text-xs sm:text-base">Huginn - Share Your Stories</p>
@@ -74,7 +74,7 @@ function Landing() {
                 </div>
             </article>
 
-            <article ref={testimoniesRef} className="pt-4 pb-15 md:pb-20">
+            <article ref={testimoniesRef} className="bg-white pt-4 pb-15 md:pb-20">
                 <div className="py-5 lg:py-10">
                     <h1 className="text-center font-bold w-full text-2xl lg:text-3xl">Testimonies</h1>
                 </div>

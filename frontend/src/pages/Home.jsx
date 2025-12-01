@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useStories } from "../hooks/StoryContext.jsx";
 
 import { StoryCard, SkeletonStoryCard } from "../components/StoryCard.jsx";
-import StoryModal from "../components/StoryModal.jsx";
 
 function Home() {
     const { stories, loading, error } = useStories();
@@ -25,7 +24,8 @@ function Home() {
     return(
         <>
             <main className="page-spacer">
-                <div className="bg-[#FBFBFB] w-full py-3.5 px-3 shadow-md flex justify-end items-center gap-x-2 lg:gap-x-4 lg:px-5">
+                <div className="bg-[#FBFBFB] w-full py-3.5 px-3 shadow-md flex justify-end items-center gap-x-2 lg:gap-x-4 lg:px-5
+                            dark:bg-[#111418] dark:border-b-2 dark:border-b-[#363940]">
                     <section>
                         <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="form-control focus:outline-none lg:text-md">
                             <option value="">All</option>
@@ -39,9 +39,11 @@ function Home() {
                         </select>
                     </section>
                     <section className="max-w-[200px] w-[85px] sm:w-[160px] md:w-full">
-                        <div className="flex border border-gray-400 rounded-lg overflow-hidden sm:rounded-full">
-                            <input type="text" value={searchResult} placeholder="Search" onChange={(e) => setSearchResult(e.target.value)} className="focus:outline-none flex-1 bg-white text-xs px-2 py-1.5 sm:rounded-l-full lg:text-md"/>
-                            <Search className="hidden w-[27px] h-auto px-1.5 mx-auto sm:block"/>
+                        <div className="flex border bg-white border-gray-400 rounded-lg overflow-hidden sm:rounded-full">
+                            <input type="text" value={searchResult} placeholder="Search" onChange={(e) => setSearchResult(e.target.value)} className="focus:outline-none flex-1 bg-white text-xs px-2 py-1.5 sm:rounded-l-full lg:text-md
+                                                                                                                                                    dark:bg-[#111418] dark:text-white"/>
+                            <Search className="hidden w-[27px] h-auto px-1.5 mx-auto sm:block
+                                            dark:bg-[#111418] dark:text-white"/>
                         </div>
                     </section>
                 </div>

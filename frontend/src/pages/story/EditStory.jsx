@@ -1,11 +1,11 @@
-import Delete from "../assets/svgs/delete.svg?react";
+import Delete from "../../assets/svgs/delete.svg?react";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { CategoryList } from "../components/Categories.jsx";
-import { PopupConfirmation } from "../components/Popup.jsx";
-import ThumbnailList from "../components/Thumbnails.jsx";
+import { CategoryList } from "../../components/Categories.jsx";
+import { PopupConfirmation } from "../../components/Popup.jsx";
+import ThumbnailList from "../../components/Thumbnails.jsx";
 import { toast } from "react-toastify";
 
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ function Edit() {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const [title, setTitle] = useState('');
     const [editStory, setEditStory] = useState('');
     const [editCategories, setEditCategories] = useState([]);
     const [editThumbnail, setEditThumbnail] = useState('');
@@ -28,6 +29,7 @@ function Edit() {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/story/get/${id}`);
 
+                setTitle(response.data.data.title);
                 setEditStory(response.data.data.story);
                 setEditCategories(response.data.data.categories);
                 setEditThumbnail(response.data.data.thumbnail);
@@ -51,7 +53,7 @@ function Edit() {
             isStoryValid = false;
         }
 
-        if(editCategories.length === 0 || editCategories.length > 2) {
+        if(editCategories.length === 0 || editCategories.length > 3) {
             isCategoryValid = false;
         }
 
@@ -109,33 +111,48 @@ function Edit() {
 
             <main className="page-spacer p-8 sm:p-10 md:p-12 lg:p-16">
                 <div className="mx-auto max-w-[1300px]">
-                    <h1 className="font-bold py-0.5 text-base lg:text-lg">Edit Story</h1>
+                    <h1 className="font-bold py-0.5 text-base lg:text-lg
+                        dark:text-[#F1F5F9]">Edit Story</h1>
                     <hr className="mt-1.5 mb-3 text-gray-400 lg:mt-2"/>
-                    <div className="w-full *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg">
-                        <Delete onClick={() => setIsPopupOpen(true)} className="w-[25px] h-auto justify-self-end p-0.5 md:p-1 md:w-[27px]"/>
+                    <div className="w-full *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg
+                                    dark:*:hover:bg-[#3d434f]">
+                        <Delete onClick={() => setIsPopupOpen(true)} className="w-[25px] h-auto justify-self-end p-0.5 md:p-1 md:w-[30px]
+                                                                                dark:text-[#94A3B8]"/>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <section className="section-spacer">
-                            <p className="text-xs font-semibold py-1 md:text-base">Story</p>
+                            <p className="text-xs font-semibold py-1 md:text-base
+                                        dark:text-[#CBD5E1]">Title</p>
                             <div className="w-full md:w-4/5">
-                                <textarea value={editStory} onChange={trackStoryField} required className="w-full p-1 border-[1px] border-gray-500 max-h-[300px] rounded-md h-full resize-none text-xs lg:text-base"></textarea>
+                                <p className="text-black/60 p-1 max-h-[300px] rounded-md text-xs lg:text-base
+                                            dark:text-[#CBD5E1]/70">{title}</p>
+                            </div>
+                        </section>
+                        <section className="section-spacer">
+                            <p className="text-xs font-semibold py-1 md:text-base
+                                        dark:text-[#CBD5E1]">Story</p>
+                            <div className="w-full md:w-4/5">
+                                <textarea value={editStory} onChange={trackStoryField} required className="w-full p-1 border-[1px] border-gray-500 max-h-[300px] rounded-md h-full resize-none text-xs lg:text-base
+                                                                                                        dark:text-[#CBD5E1]"></textarea>
                                 <p className="text-xs p-0.5 text-gray-400">{storyRemaining} words left</p>      
                             </div>
                         </section>
                         <section className="section-spacer">
-                            <p className="text-xs font-semibold py-1 md:text-base">Category</p>
+                            <p className="text-xs font-semibold py-1 md:text-base
+                                        dark:text-[#CBD5E1]">Category</p>
                             <div className="w-full py-1 flex flex-wrap rounded-md md:py-0 md:w-4/5">
                                 <CategoryList categoryList={editCategories} onToggle={handleCategory}/>
                             </div>
                         </section>
                         <section className="section-spacer">
-                            <p className="text-xs font-semibold py-1 md:text-base">Thumbnail</p>
+                            <p className="text-xs font-semibold py-1 md:text-base
+                                        dark:text-[#CBD5E1]">Thumbnail</p>
                             <div className="w-full py-1 flex flex-wrap md:py-0 md:w-4/5">
                                 <ThumbnailList selectedPicture={editThumbnail} setSelectedPicture={setEditThumbnail}/>
                             </div>
                         </section>
                         <section className="flex justify-center mx-auto w-full mt-6 mb-4 py-5">
-                            <button type="submit" disabled={validateForm === false} className={`primary-button ${validateForm ? 'cursor-pointer hover:bg-gray-600' : 'opacity-60 cursor-no-drop'}`}>Update</button>
+                            <button type="submit" disabled={validateForm() === false} className={`primary-button ${validateForm() ? 'cursor-pointer' : 'opacity-60 pointer-events-none'}`}>Update</button>
                         </section>
                     </form>
                 </div>

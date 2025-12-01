@@ -11,7 +11,7 @@ export function StoryCard({ id, thumbnail, title, date, categories }) {
 
     return(
         <>
-            <Link to={`/story/get/${id}`} className="max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3.5 border-[1px] cursor-pointer overflow-hidden transition-all ease-in-out duration-300 hover:bg-gray-50 hover:shadow-xl after:p-3 xl:min-w-[400px]" tabIndex={0}>
+            <Link to={`/story/get/${id}`} className="story-card" tabIndex={0}>
                 <section>
                     <img src={`/story-pictures/${thumbnail}`} className="max-h-[100px] w-full h-full block object-cover"/>
                 </section>
@@ -41,14 +41,14 @@ export function StoryCard({ id, thumbnail, title, date, categories }) {
     )
 }
 
-export function PersonalStoryCard({ id, thumbnail, title, date, categories, modalFunction, editFunction }) {
+export function PersonalStoryCard({ id, thumbnail, title, date, categories, editFunction }) {
     return(
         <>
-            <Link to={`/story/get/${id}`} className="relative max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3.5 border-[1px] cursor-pointer overflow-hidden transition-all ease-in-out duration-300 hover:bg-gray-50 hover:shadow-xl after:p-3 xl:min-w-[400px]" onClick={modalFunction} tabIndex={0}>
+            <Link to={`/story/get/${id}`} className="relative story-card" tabIndex={0}>
                 <section>
                     <img src={`/story-pictures/${thumbnail}`} className="max-h-[100px] w-full h-full block object-cover"/>
                 </section>
-                <div className="px-1.5 pt-2.5 pb-6">
+                <div className="px-1.5 pt-2.5 pb-3.5">
                     <section className="px-2">
                         <h1 className="font-bold text-center truncate lg:text-xl">{title}</h1>
                     </section>
@@ -62,16 +62,17 @@ export function PersonalStoryCard({ id, thumbnail, title, date, categories, moda
                             ))}
 
                             {categories.length > 1 && (
-                                <span className="border-[1px] py-0.5 px-2 rounded-3xl text-xs text-gray-500 self-center">
+                                <span className="border-[1px] px-2 rounded-3xl text-[10px] text-gray-500 self-center sm:py-0.5 sm:text-xs">
                                     +{categories.length - 1}
                                 </span>
                             )}
                         </div>
                     </section>
                 </div>
-                <div className="absolute bottom-0 right-1.5 rounded-4xl p-1 flex *:flex *:p-1.5 *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg">
+                <div className="absolute bottom-0 right-1.5 rounded-4xl p-1 flex *:flex *:p-1 *:cursor-pointer *:hover:bg-gray-200 *:rounded-lg
+                                dark:*:hover:bg-[#3d434f]">
                     <Link to={`/story/edit/${id}`} onClick={editFunction}>
-                        <Edit width={18} height={18}/>
+                        <Edit width={18} height={18} className="dark:text-[#94A3B8]"/>
                     </Link>          
                 </div>              
             </Link>  

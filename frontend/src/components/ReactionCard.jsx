@@ -52,7 +52,8 @@ function ReactionCard({ id, reactions: initialReactions }) {
 
 function ReactionButton({ emoji, count, onClick }) {
     return(
-        <div className="mx-1.5 py-1 cursor-pointer rounded-md text-xs transition-all ease-in-out duration-300 hover:bg-gray-200 md:mx-1 md:text-sm" onClick={(e) => {
+        <div className="mx-1 py-1 px-1 cursor-pointer rounded-md text-xs transition-all ease-in-out duration-300 hover:bg-gray-200 md:mx-1 md:text-sm
+            dark:text-[#CBD5E1] dark:hover:bg-[#272B33]" onClick={(e) => {
             onClick();
             e.stopPropagation();
         }}>
