@@ -74,10 +74,11 @@ function Profile() {
                                     <SkeletonStoryCard/>
                                 </div>
                             ) : stories.length > 0 ? (
-                                <div className="flex flex-col gap-x-3 gap-y-5 my-6 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] xl:gap-y-7 xl:w-fit xl:mx-auto">
+                                <div className="flex flex-col gap-x-3 gap-y-5 mt-6 mb-10 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] xl:gap-y-7 xl:mx-auto">
                                     {
                                         stories.map((story, key) => (                   
-                                            <PersonalStoryCard 
+                                            <PersonalStoryCard
+                                                key={key} 
                                                 id={story._id}
                                                 thumbnail={story.thumbnail}
                                                 title={story.title}
@@ -121,10 +122,10 @@ function Personalization({ modalFunction }) {
                                     dark:divide-[#323843]">
                         <div className="flex justify-between px-1.5 py-2.5">
                             <p className="text-xs self-center md:text-sm">Dark Mode</p>
-                            <label className="relative inline-block w-12 h-6 cursor-pointer">
+                            <label className="relative inline-block w-10 h-5 cursor-pointer md:w-12 md:h-6">
                                 <input type="checkbox" className="sr-only peer" checked={isDarkMode} onChange={(e) => toggleDarkMode(e.target.checked)}/>
                                 <span className="absolute inset-0 bg-gray-300 rounded-full transition-colors duration-300 peer-checked:bg-blue-500"></span>
-                                <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-6"></span>
+                                <span className="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5 md:w-4 md:h-4 md:peer-checked:translate-x-6"></span>
                             </label>
                         </div>
                         <div className="flex justify-between px-1.5 py-1.5 lg:py-2.5">

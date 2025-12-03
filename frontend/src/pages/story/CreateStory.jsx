@@ -120,7 +120,7 @@ function Create() {
                             <ThumbnailList selectedPicture={thumbnail} setSelectedPicture={handleThumbnail}/>
                         </div>
                     </section>
-                    <div className="flex justify-center mx-auto w-full mt-6 mb-4 py-5">
+                    <div className="flex justify-center mx-auto w-full mt-2.5 mb-10 py-5 md:mt-6 md:mb-4">
                         <button type="submit" disabled={validateForm() === false} className={`primary-button ${validateForm() ? 'cursor-pointer' : 'opacity-60 pointer-events-none'}`}>Submit</button>
                     </div>
                 </form>    

@@ -48,35 +48,36 @@ function Home() {
                     </section>
                 </div>
                 { loading ? (
-                    <div className="flex flex-col gap-x-3 gap-y-5 my-6 mx-7 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] xl:gap-y-7">
-                        <SkeletonStoryCard/>
-                        <SkeletonStoryCard/>
-                        <SkeletonStoryCard/>
-                        <SkeletonStoryCard/>
-                        <SkeletonStoryCard/>
-                        <SkeletonStoryCard/>                    
-                    </div>
-                ) : filteredStories.length > 0 ? (
-                    <div className="flex flex-col gap-x-3 gap-y-5 my-6 mx-7 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] xl:gap-y-7 xl:w-fit xl:mx-auto">
-                        {
-                            filteredStories.map((story, key) => (                   
-                                <StoryCard
-                                    key={key}
-                                    id={story._id}
-                                    thumbnail={story.thumbnail}
-                                    title={story.title}
-                                    date={story.createdAt}
-                                    categories={story.categories}
-                                    modalFunction={() => handleOpenStory(story)}
-                                />
-                            ))
-                        }
-                    </div>
-                ) : (
-                    <div className="flex justify-center items-center h-screen">
-                        <p className="text-lg md:text-2xl lg:text-3xl">No Stories.</p>
-                    </div>
-                )}
+                        <div className="flex flex-col gap-x-3 gap-y-5 my-7 mb-20 px-5 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] lg:px-10 xl:gap-y-7 xl:mx-auto">
+                            <SkeletonStoryCard/>
+                            <SkeletonStoryCard/>
+                            <SkeletonStoryCard/>
+                            <SkeletonStoryCard/>
+                            <SkeletonStoryCard/>
+                            <SkeletonStoryCard/>                    
+                        </div>
+                    ) : filteredStories.length > 0 ? (
+                        <div className="flex flex-col gap-x-3 gap-y-5 my-7 mb-20 px-5 z-0 h-full sm:grid sm:grid-cols-2 sm:auto-rows-auto sm:place-items-center md:grid-cols-3 md:mt-[2rem] lg:px-10 xl:gap-y-7 xl:mx-auto">
+                            {
+                                filteredStories.map((story, key) => (                   
+                                    <StoryCard
+                                        key={key}
+                                        id={story._id}
+                                        thumbnail={story.thumbnail}
+                                        title={story.title}
+                                        date={story.createdAt}
+                                        categories={story.categories}
+                                        modalFunction={() => handleOpenStory(story)}
+                                    />
+                                ))
+                            }
+                        </div>
+                    ) : (
+                        <div className="flex justify-center items-center h-screen">
+                            <p className="text-lg md:text-2xl lg:text-3xl">No Stories.</p>
+                        </div>
+                    )
+                }
             </main>  
         </>
     )

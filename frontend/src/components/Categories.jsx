@@ -23,7 +23,7 @@ export function CategoryList({ categoryList, onToggle }) {
 
 export function CategoryBadge({ index, category }) {
     return(
-        <span key={index} style={{ color: `var(--cat-${category})`, borderColor: `var(--cat-${category})`}} className={`border px-3.5 rounded-full text-[10px] self-center sm:py-0.5 sm:text-xs lg:px-5`}>
+        <span key={index} style={{ color: `var(--cat-${category})`, borderColor: `var(--cat-${category})`}} className={`border px-3.5 rounded-full text-xs self-center sm:py-0.5 sm:text-[11px] lg:px-4`}>
             {category}
         </span>
     )

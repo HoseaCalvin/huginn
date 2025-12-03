@@ -7,7 +7,7 @@ body, html {
 
 @layer base {
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 7px;
   }
 
   ::-webkit-scrollbar-track {
@@ -79,7 +79,7 @@ body {
 }
 
 .story-card {
-  @apply max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3.5 border cursor-pointer overflow-hidden transition-all ease-in-out duration-300 hover:bg-gray-50 hover:shadow-xl after:p-3 xl:min-w-[400px]
+  @apply max-w-[400px] h-fit self-center w-full rounded-xl bg-white shadow-lg mx-3 border cursor-pointer overflow-hidden transition-all ease-in-out duration-300 hover:bg-gray-50 hover:shadow-xl after:p-3
     dark:bg-[#111418] dark:text-[#F1F5F9] dark:border-[#454950] dark:hover:bg-[#272B33];
 }
 

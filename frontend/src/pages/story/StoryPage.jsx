@@ -54,9 +54,7 @@ function StoryPage() {
 
     if (!storyData) {
         return (
-            <main className="page-spacer lg:px-12 lg:py-9">
-                <p>Loading story...</p>
-            </main>
+            <SkeletonStoryPage/>
         );
     }
 
@@ -108,16 +106,16 @@ function StoryPage() {
                     </div>
                     <h1 className="font-bold text-xl md:text-2xl lg:text-3xl
                                 dark:text-[#F1F5F9]">{storyData.title}</h1>
-                    <div className="flex gap-x-2 items-center py-1 md:py-2.5 lg:py-3">
-                        <p className="text-gray-500 text-[10px] md:text-base">{textFormat(storyData.createdAt)}</p>
-                        <p className="font-semibold text-gray-400 text-[10px] md:text-base">·</p>
+                    <div className="space-x-2 sm:items-center py-1 md:flex md:py-2.5 lg:py-3">
+                        <p className="text-gray-500 pb-2 text-xs md:pb-0 md:text-base">{textFormat(storyData.createdAt)}</p>
+                        <p className="hidden font-semibold text-gray-400 text-[10px] md:inline-block md:text-base">·</p>
                         {
                             storyData.categories.map((category) => (
                                 <CategoryBadge category={category}/>
                             ))
                         }
                     </div>
-                    <article className="h-fit pt-3.5 pb-4.5 lg:py-6">
+                    <article className="h-fit pt-8 pb-3 lg:py-6">
                         <p className="text-xs sm:text-sm md:text-base
                                     dark:text-[#CBD5E1]">{storyData.story}</p>
                     </article>
@@ -130,7 +128,7 @@ function StoryPage() {
                             </div>
                         </div>
                         <form onSubmit={submitComment} className="w-full pt-4 pb-4 lg:pt-6 lg:pb-2">
-                            <input type="text" value={commentText} onChange={(e) => setCommentText(e.target.value)} placeholder="What do you think about this Story?" className="border-0 border-b-2 rounded-xl border-gray-400 w-full text-[10px] px-2 py-2 outline-0 transition-all focus:border-black sm:px-2.5 sm:text-xs md:text-base
+                            <input type="text" value={commentText} onChange={(e) => setCommentText(e.target.value)} placeholder="What do you think about this Story?" className="border-0 border-b-2 rounded-xl border-gray-400 w-full text-xs px-2 py-2 outline-0 transition-all focus:border-black sm:px-2.5 sm:text-sm md:text-base
                                                                                                                                                                             dark:border-[#2C313A] dark:focus:border-[#525a6a] dark:text-[#CBD5E1]"/>
                             <div className="flex justify-end px-2.5 py-2 w-full gap-x-2 md:py-2 md:gap-x-3 lg:gap-x-4">
                                 <div onClick={() => setCommentText('')} className="font-semibold cursor-pointer px-4 py-1 rounded-full text-xs transition-all ease-in-out duration-300 hover:bg-red-700 hover:text-white md:text-base
@@ -178,6 +176,59 @@ function StoryPage() {
                 </div>
             </main>
         </>
+    )
+}
+
+function SkeletonStoryPage() {
+    return(
+        <main className="page-spacer animate-pulse py-15 px-6 sm:p-10 md:p-12 lg:p-14">
+            <div className="bg-gray-100 rounded-lg h-[20px] my-2.5 w-[80px] sm:w-[100px]
+                            dark:bg-[#3d434f]"></div>
+            <div className="bg-gray-100 rounded-lg h-[40px] my-2 sm:w-[400px] md:my-3 md:w-[500px]
+                            dark:bg-[#3d434f]"></div>
+            <div className="flex gap-x-4.5 md:gap-x-6">
+                <div className="bg-gray-100 rounded-lg h-[25px] my-1 w-[80px] lg:w-[130px]
+                                dark:bg-[#3d434f]"></div>
+                <div className="bg-gray-100 rounded-lg h-[25px] my-1 w-[120px] lg:w-[300px]
+                                dark:bg-[#3d434f]"></div>
+            </div>
+            <div className="bg-gray-100 rounded-lg h-[110px] mt-4 mb-8 md:my-7 lg:my-8
+                            dark:bg-[#3d434f]"></div>
+            <div className="bg-gray-100 rounded-lg h-[8px]
+                            dark:bg-[#3d434f]"></div>
+            <div className="bg-gray-100 rounded-lg h-[25px] my-4.5 w-[120px] lg:w-[220px]
+                            dark:bg-[#3d434f]"></div>
+            <div className="bg-gray-100 rounded-lg h-[35px] mt-7 mb-3
+                            dark:bg-[#3d434f]"></div>
+            <div className="flex gap-x-3 justify-end">
+                <div className="bg-gray-100 rounded-lg h-[25px] w-[60px] md:w-[80px] lg:w-[100px]
+                                dark:bg-[#3d434f]"></div>
+                <div className="bg-gray-100 rounded-lg h-[25px] w-[60px] md:w-[80px] lg:w-[100px]
+                                dark:bg-[#3d434f]"></div>
+            </div>
+            <div className="bg-gray-100 rounded-lg mt-6 h-[25px] w-[100px] md:mt-3 lg:w-[130px]
+                            dark:bg-[#3d434f]"></div>
+            <div className="my-4.5 flex gap-x-4.5 md:my-6">
+                <div className="bg-gray-100 rounded-full h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]
+                                dark:bg-[#3d434f]"></div>
+                <div className="space-y-1.5 lg:space-y-3">
+                    <div className="bg-gray-100 rounded-full h-[20px] w-[60px] lg:w-[80px]
+                                    dark:bg-[#3d434f]"></div>
+                    <div className="bg-gray-100 rounded-full h-[20px] w-[120px] lg:w-[150px]
+                                    dark:bg-[#3d434f]"></div>
+                </div>
+            </div>
+            <div className="my-4.5 flex gap-x-4.5 md:my-6">
+                <div className="bg-gray-100 rounded-full h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]
+                                dark:bg-[#3d434f]"></div>
+                <div className="space-y-1.5 lg:space-y-3">
+                    <div className="bg-gray-100 rounded-lg h-[20px] w-[60px] lg:w-[80px]
+                                    dark:bg-[#3d434f]"></div>
+                    <div className="bg-gray-100 rounded-lg h-[20px] w-[120px] lg:w-[150px]
+                                    dark:bg-[#3d434f]"></div>
+                </div>
+            </div>
+        </main>
     )
 }
 

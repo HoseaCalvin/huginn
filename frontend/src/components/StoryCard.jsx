@@ -21,7 +21,7 @@ export function StoryCard({ id, thumbnail, title, date, categories }) {
                     </section>
                     <section className="flex justify-between mt-1.5 px-1 lg:mt-4">
                         <div className="self-center">
-                            <p className="text-gray-400 text-xs lg:text-sm">{internationalFormat(date)}</p>
+                            <p className="text-gray-400 text-xs">{internationalFormat(date)}</p>
                         </div>
                         <div className="self-center space-x-1">
                             { categories.slice(0, limit).map((category, index) => (
@@ -54,7 +54,7 @@ export function PersonalStoryCard({ id, thumbnail, title, date, categories, edit
                     </section>
                     <section className="flex justify-between mt-1.5 px-1 lg:mt-2">
                         <div className="self-center">
-                            <p className="text-gray-400 text-xs lg:text-sm">{internationalFormat(date)}</p>
+                            <p className="text-gray-400 text-xs">{internationalFormat(date)}</p>
                         </div>
                         <div className="self-center space-x-1">
                             { categories.slice(0, 1).map((category, index) => (
@@ -62,7 +62,7 @@ export function PersonalStoryCard({ id, thumbnail, title, date, categories, edit
                             ))}
 
                             {categories.length > 1 && (
-                                <span className="border-[1px] px-2 rounded-3xl text-[10px] text-gray-500 self-center sm:py-0.5 sm:text-xs">
+                                <span className="border px-2 rounded-3xl text-sm text-gray-500 self-center sm:py-0.5 sm:text-[11px]">
                                     +{categories.length - 1}
                                 </span>
                             )}
@@ -82,13 +82,18 @@ export function PersonalStoryCard({ id, thumbnail, title, date, categories, edit
 
 export function SkeletonStoryCard() {
     return(
-        <div className="animate-pulse max-w-[400px] h-fit self-center w-full rounded-xl bg-gray-100 shadow-lg overflow-hidden m-3.5 after:p-3">
-            <section className="bg-gray-200 h-[100px] w-full block"></section>
+        <div className="animate-pulse max-w-[400px] h-fit self-center w-full rounded-xl bg-gray-100 shadow-lg overflow-hidden mx-3.5 after:p-3 xl:max-w-[500px]
+                        dark:bg-[#111418]">
+            <section className="bg-gray-200 h-[100px] w-full block
+                                dark:bg-[#272B33]"></section>
             <div className="px-3 py-2.5 w-full mt-1.5 lg:px-4 lg:py-3.5">
-                <span className="bg-gray-200 p-2 w-full rounded-md h-[25px] block"></span>
+                <span className="bg-gray-200 p-2 w-full rounded-md h-[25px] block
+                                    dark:bg-[#272B33]"></span>
                 <section className="flex justify-between mt-2 *:rounded-sm lg:mt-4">
-                    <span className="bg-gray-200 w-[75px] h-[20px]"></span>
-                    <span className="bg-gray-200 w-[90px] h-[20px]"></span>
+                    <span className="bg-gray-200 w-[75px] h-[20px]
+                                    dark:bg-[#272B33]"></span>
+                    <span className="bg-gray-200 w-[90px] h-[20px]
+                                    dark:bg-[#272B33]"></span>
                 </section>      
             </div>
       
